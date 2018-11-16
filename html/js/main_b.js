@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 // HTML contains element 'message'. This is used to show the server's response
 // Select it and save it as a variable/object
@@ -23,20 +23,22 @@ const upload = event => {
   const data = new FormData();
   // add file to FormData -object.
   // Note that 'files' is an FileList object. This means that you can upload multiple files.
-  data.append("fileToUpload", input.files[0]);
+  data.append('file', input.files[0]);
   // make an object for settings
   const settings = {
-    method: "POST",
+    method: 'POST',
     // credentials: 'same-origin', // this might be needed for some servers
     body: data
   };
   // initiate fetch. In this example the server responds with json.
   // Response could also be text. Then you would use response.text()
-  fetch("someUrl", settings)
+  fetch('http://localhost:3000/upload', settings)
     .then(response => {
       return response.json();
     })
     .then(json => {
-      console.log(json);
+      document.querySelector('img').setAttribute('src', json.url);
     });
 };
+
+document.querySelector('form').onsubmit = upload;
